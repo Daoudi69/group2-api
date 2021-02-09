@@ -2,7 +2,7 @@ name: groupX-2
 on:
   push:
     branches:
-      - develop
+      - test
   pull_request:
     branches:
       - develop
