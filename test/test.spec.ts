@@ -1,20 +1,21 @@
-import * as assert from "assert"
+//import * as assert from "assert"
 import * as chai from "chai"
 const expect = chai.expect
-import { User } from"../src/model/User"
+import { User } from "../src/model/User"
 
 const data = {
-    id: 5, 
+    id: 5,
     surname: "Ben",
     name: "John",
 }
-const user: any = new User(data)
+const user = new User(data)
 
 describe("Test models", () => {
 
     it("Test if user model is valid", () => {
         expect(user.id).to.equal(5)
         expect(user.name).to.equal("John")
-        expect(user.surname).not.to.equal("Ben")
+        expect(user).to.not.have.property("surname")
+
     })
 })

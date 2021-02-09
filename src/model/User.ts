@@ -1,26 +1,24 @@
-export class User {
+export class User
+{
     id: number = null
     name: string = null
     email: string = null
 
-
-    constructor(data?: any) {
+    // contructors
+    constructor(data?: any)
+    {
         if (data) {
-            this.hydrate(data)
+            this.hydrate(data) 
         }
+        
     }
-
 
     private hydrate(data: any)
     {
-
         for (let prop in data) {
-          if (this.hasOwnProperty(prop)) {
-              this[prop] = data[prop]
-          }
+            if (this.hasOwnProperty(prop)) {
+                this[prop] = data[prop]
+            }
         }
-
     }
-
-
 }
