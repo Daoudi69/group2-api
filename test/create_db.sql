@@ -1,1 +1,1 @@
-CREATE DATABASE simplon_groupx_test;
+CREATE DATABASE IF NOT EXISTS simplon_groupx_test;
