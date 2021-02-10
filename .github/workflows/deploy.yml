@@ -1,0 +1,27 @@
+name: Deploy in beta
+on: 
+  push:
+    branches:
+      - develop
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Executing remote ssh 2 commands using password
+        uses: appleboy/ssh-action@master
+        env:
+          CLONE_DIR: "/home/john/node-grpx"
+          REPO_URL: ${{ github.repository }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: CLONE_DIR,REPO_URL
+          script: |
+            echo "Hello world $CLONE_DIR"
+            rm -rf /home/john/node-grpx
+            git clone -b develop git@github.com:$REPO_URL.git /home/john/node-grpx
+            cd /home/john/node-grpx
+            npm install
+            npm run build
