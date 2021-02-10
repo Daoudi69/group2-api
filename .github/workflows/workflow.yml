@@ -1,19 +1,51 @@
-name: groupX-0
-on:
-  push:
-    branches:
-      - develop
-  pull_request:
-    branches:
-      - develop
-jobs:
-  test:
-    name: Run tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '15'
-      - run: npm install
-      - run: npm test
+# name: groupX-2
+# on:
+#   push:
+#     branches:
+#       - test
+#   pull_request:
+#     branches:
+#       - develop
+# jobs:
+#   test:
+#     name: Run tests
+#     runs-on: ubuntu-latest
+#     services:
+#       mysql:
+#         image: mysql:5.7
+#         env:
+#           MYSQL_ALLOW_EMPTY_PASSWORD: no
+#           MYSQL_DATABASE: simplon_groupx_test
+#           MYSQL_PASSWORD: Jackie9an
+#           MYSQL_USER: jack
+#         ports:
+#           - 3306:3306
+#         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-node@v2
+#         with:
+#           node-version: '15'
+#       - name: Populate MySQL database
+#         run: bash pre-test.sh
+#         # $GITHUB_WORKSPACE
+#       - run: npm install
+#       - run: npm test
+  #     - name: Send mail
+  # if: always()
+  # uses: dawidd6/action-send-mail@v2
+  # with:
+  #   # mail server settings
+  #   server_address: smtp.gmail.com
+  #   server_port: 465
+  #   # user credentials
+  #   username: ${{ secrets.EMAIL_USERNAME }}
+  #   password: ${{ secrets.EMAIL_PASSWORD }}
+  #   # email subject
+  #   subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+  #   # email body as text
+  #   body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+  #   # comma-separated string, send email to
+  #   to: johndoe@gmail.com,doejohn@gmail.com
+  #   # from email name
+  #   from: John Doe
