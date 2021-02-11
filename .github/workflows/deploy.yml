@@ -19,7 +19,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           envs: CLONE_DIR,REPO_URL
           script: |
-            echo "Hello world $CLONE_DIR"
             rm -rf $CLONE_DIR
             git clone -b develop git@github.com:$REPO_URL.git $CLONE_DIR
             cd $CLONE_DIR
