@@ -3,7 +3,7 @@ server {
     server_name grp2.360medics.com;
     
     location / {
-        proxy_pass http://localhost:360x;
+        proxy_pass http://localhost:3602;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
