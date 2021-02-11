@@ -14,14 +14,14 @@ app.get('/', (req: any, res: any) => {
 
 app.get('/users', (req: any, res: any) => {
     const limit = req.query.limit
-
-    UserRepository.getUsers(limit)
-        .then((users: any) => {
-            res.send(users)
-        }).catch(e => {
-            // logs?
-            res.send(500, { error: e.toString() })
-        })
+    res.send([])
+    //UserRepository.getUsers(limit)
+    //    .then((users: any) => {
+    //        res.send(users)
+    //    }).catch(e => {
+    //        // logs?
+    //        res.send(500, { error: e.toString() })
+    //    })
 })
 
 app.listen(process.env.PORT, () => {

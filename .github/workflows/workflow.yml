@@ -1,33 +1,31 @@
-name: groupX-0
-on:
+name: Deploy in beta
+on: 
   push:
     branches:
       - develop
-  pull_request:
-    branches:
-      - develop
 jobs:
-  test:
-    name: Run tests
+  deploy:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: no
-          MYSQL_DATABASE: simplon_groupx_test
-          MYSQL_PASSWORD: Jackie9an
-          MYSQL_USER: jack
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Executing remote ssh 2 commands using password
+        uses: appleboy/ssh-action@master
+        env:
+          CLONE_DIR: "/home/john/node-grpx"
+          REPO_URL: ${{ github.repository }}
+          EXPRESS_PORT: ${{ secrets.EXPRESS_PORT }}
         with:
-          node-version: '15'
-      - name: Populate MySQL database
-        run: bash pre-test.sh
-        # $GITHUB_WORKSPACE
-      - run: npm install
-      - run: npm test
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: CLONE_DIR,REPO_URL,EXPRESS_PORT
+          script: |
+            rm -rf $CLONE_DIR
+            git clone -b develop git@github.com:$REPO_URL.git $CLONE_DIR
+            cd $CLONE_DIR
+            npm install
+            npm run build
+            cp .env.dist ./dist/.env
+            cd dist && npm install
+            sed -i 's/xenv/prod/g' .env
+            sed -i 's/xport/${{ secrets.EXPRESS_PORT }}/g' .env
