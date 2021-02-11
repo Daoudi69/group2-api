@@ -30,4 +30,6 @@ jobs:
             sed -i 's/xenv/prod/g' .env
             sed -i 's/xport/${{ secrets.EXPRESS_PORT }}/g' .env
             npm install --production
-            pm2 stop app-grp2 && pm2 start index.js --name=app-grp2
+            pm2 stop app-grp2
+            pm2 start index.js --name "app-grp2"
+            
